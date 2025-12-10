@@ -59,7 +59,7 @@ class LocationRepositoryImpl implements LocationRepository {
         return Left('Location services are disabled');
       }
 
-      await BackgroundLocationService.startTracking(authToken);
+      await BackgroundLocationTracker.startTracking(authToken);
       return Right(null);
     } catch (e) {
       return Left(e.toString());
@@ -69,7 +69,7 @@ class LocationRepositoryImpl implements LocationRepository {
   @override
   Future<Either<String, void>> stopLocationTracking() async {
     try {
-      await BackgroundLocationService.stopTracking();
+      await BackgroundLocationTracker.stopTracking();
       return Right(null);
     } catch (e) {
       return Left(e.toString());
@@ -78,7 +78,7 @@ class LocationRepositoryImpl implements LocationRepository {
 
   @override
   Future<bool> isTrackingActive() async {
-    return await BackgroundLocationService.isTracking();
+    return await BackgroundLocationTracker.isTracking();
   }
 
   @override
